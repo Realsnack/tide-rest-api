@@ -1,5 +1,6 @@
 mod api;
 mod routes;
+mod services;
 
 use routes::root_routes::init_root_routes;
 
@@ -9,15 +10,12 @@ async fn main() -> tide::Result<()> {
 
     init_root_routes(&mut app);
 
+    // services
+    let redis = crate::services::redis_service::RedisService::new("127.0.0.1".to_string(), 6379);
+
+    println!("Listening on port 8080");
     app.listen("127.0.0.1:8080").await?;
 
     Ok(())
 }
 
-fn hello_world(_req: tide::Request<()>) -> tide::Result {
-    let response = tide::Response::builder(tide::StatusCode::Ok)
-        .body("Hello, World!")
-        .build();
-
-    Ok(response)
-}
