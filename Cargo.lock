@@ -1873,6 +1873,7 @@ dependencies = [
 name = "tide_rest_api"
 version = "0.1.0"
 dependencies = [
+ "femme",
  "r2d2",
  "r2d2_redis",
  "serde",
