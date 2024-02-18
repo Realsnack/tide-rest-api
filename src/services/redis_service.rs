@@ -1,6 +1,5 @@
 use r2d2_redis::redis::Commands;
 
-
 pub struct RedisService {
     connection_pool: r2d2::Pool<r2d2_redis::RedisConnectionManager>,
 }
@@ -17,11 +16,16 @@ impl RedisService {
         RedisService { connection_pool }
     }
 
-    pub fn get_key(self, key: &str) -> String {
+    pub fn get_key(&self, key: &str) -> String {
         let mut conn = self.connection_pool.get().unwrap();
         let value: String = conn.get(key).unwrap();
 
         value
+    }
+
+    pub fn set_key(&self, key: &str, value: &str) {
+        let mut conn = self.connection_pool.get().unwrap();
+        let _: () = conn.set(key, value).unwrap();
     }
 }
 
