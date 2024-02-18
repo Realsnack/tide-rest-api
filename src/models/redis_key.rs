@@ -1,8 +1,18 @@
-pub mod redis_key;
-#[derive(Clone)]
+use serde::{Deserialize, Serialize};
 
-struct RedisKey {
+#[derive(Debug,Deserialize, Serialize)]
+pub struct RedisKey {
     key: String,
-    value: String,
-    expiration: u32
+    value: Option<String>,
+    expiration: Option<u32>,
+}
+
+impl RedisKey {
+    pub fn new(key: String, value: Option<String>, expiration: Option<u32>) -> Self {
+        RedisKey {
+            key,
+            value,
+            expiration,
+        }
+    }
 }
