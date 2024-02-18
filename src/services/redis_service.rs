@@ -27,6 +27,14 @@ impl RedisService {
         RedisKey::new(key.to_string(), value, None)
     }
 
+    pub fn get_key_expiration(&self, key: &str) -> Option<i64> {
+        log::debug!("Getting key expiration: {}", key);
+        let mut conn = self.connection_pool.get().unwrap();
+        let expiration: Option<i64> = conn.ttl(key).unwrap();
+        
+        expiration
+    }
+
     pub fn set_key(&self, key: &str, value: &str) {
         log::debug!("Setting key: {} with value: {}", key, value);
         let mut conn = self.connection_pool.get().unwrap();

@@ -11,7 +11,7 @@ use crate::{services::redis_service::RedisService, routes::redis_routes::init_re
 
 #[tokio::main]
 async fn main() -> tide::Result<()> {
-    femme::with_level(femme::LevelFilter::Info);
+    femme::with_level(femme::LevelFilter::Debug);
     // services
     let redis = RedisService::new("127.0.0.1".to_string(), 6379);
     let state = AppState { 
