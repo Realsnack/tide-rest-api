@@ -1,6 +1,6 @@
-use crate::AppState;
+use crate::{AppState, models::redis_key::RedisKey};
 
-pub async fn handle_get_key_value(req: tide::Request<AppState>) -> tide::Result {
+pub async fn handle_get_redis_key(req: tide::Request<AppState>) -> tide::Result {
     let key = req.param("key").unwrap_or("Error");
     let redis = &req.state().redis;
     let mut redis_key = redis.get_key(key);
@@ -13,5 +13,13 @@ pub async fn handle_get_key_value(req: tide::Request<AppState>) -> tide::Result 
     }
 
     Ok(tide::Response::builder(tide::StatusCode::Ok).body(tide::Body::from_json(&redis_key).unwrap()).build())
+}
+
+pub async fn handle_post_redis_key(mut req: tide::Request<AppState>) -> tide::Result {
+    let body: RedisKey = req.body_json().await?;
+    let redis = &req.state().redis;
+    _ = redis.set_redis_key(body);
+
+    Ok(tide::Response::builder(tide::StatusCode::Ok).build())
 }
 
