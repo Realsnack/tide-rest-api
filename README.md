@@ -1,5 +1,8 @@
 # tide-rest-api
 
+[![build and test](https://github.com/Realsnack/tide-rest-api/actions/workflows/rust_build.yml/badge.svg?branch=main)](https://github.com/Realsnack/tide-rest-api/actions/workflows/rust_build.yml)
+[![rust-clippy analyze](https://github.com/Realsnack/tide-rest-api/actions/workflows/rust_clippy.yml/badge.svg?branch=main)](https://github.com/Realsnack/tide-rest-api/actions/workflows/rust_clippy.yml)
+
 # Creating a simple applications in different languages and technologies.
 
 ## Requirements:
