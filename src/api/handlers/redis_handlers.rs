@@ -3,9 +3,7 @@ use crate::{AppState, models::redis_key::RedisKey};
 pub async fn handle_get_redis_key(req: tide::Request<AppState>) -> tide::Result {
     let key = req.param("key").unwrap_or("Error");
     let redis = &req.state().redis;
-    let mut redis_key = redis.get_key(key);
-    let key_expiration = redis.get_key_expiration(key);
-    redis_key.set_expiration(key_expiration);
+    let redis_key = redis.get_key(key);
     tide::log::debug!("Key: {} has value: {:?}", key, redis_key);
 
     if redis_key.value.is_none() {
