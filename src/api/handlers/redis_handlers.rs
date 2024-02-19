@@ -18,7 +18,7 @@ pub async fn handle_get_redis_key(req: tide::Request<AppState>) -> tide::Result 
 pub async fn handle_post_redis_key(mut req: tide::Request<AppState>) -> tide::Result {
     let body: RedisKey = req.body_json().await?;
     let redis = &req.state().redis;
-    _ = redis.set_redis_key(body);
+    redis.set_redis_key(body);
 
     Ok(tide::Response::builder(tide::StatusCode::Ok).build())
 }
